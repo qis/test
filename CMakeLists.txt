@@ -22,8 +22,8 @@ find_package(Threads REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
-  target_link_libraries(${PROJECT_NAME} PUBLIC stdc++fs)
-  target_link_options(${PROJECT_NAME} PUBLIC -static-libstdc++)
+  target_link_libraries(${PROJECT_NAME} PRIVATE stdc++fs)
+  target_link_options(${PROJECT_NAME} PRIVATE -static-libstdc++)
 endif()
 
 # Install
