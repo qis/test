@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 project(test VERSION 0.1.0 LANGUAGES CXX)
 
 # Sources
-file(GLOB_RECURSE sources src/*.[hc]pp)
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS src/*.[hc]pp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${sources} src/main.manifest)
@@ -35,3 +35,7 @@ if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
     file(INSTALL $\{libraries} DESTINATION \"${CMAKE_INSTALL_PREFIX}/bin\")
   ")
 endif()
+
+# Visual Studio
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
