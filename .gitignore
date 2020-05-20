@@ -1,7 +1,6 @@
 /*
 .*
 *.aps
-!/res/
 !/src/
 !/.clang-format
 !/.clang-tidy
