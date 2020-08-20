@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
       }
     });
     const auto end = std::chrono::high_resolution_clock::now();
-    fmt::print("TBB: {}\n", std::chrono::floor<std::chrono::nanoseconds>(end - beg));
+    fmt::print("TBB: {} ns\n", std::chrono::floor<std::chrono::nanoseconds>(end - beg).count());
   }
   catch (const std::exception& e) {
     fmt::print(stderr, "error: {}\n", e.what());
