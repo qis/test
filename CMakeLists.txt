@@ -15,18 +15,17 @@ target_include_directories(${PROJECT_NAME} PRIVATE src)
 find_package(fmt CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
-find_package(TBB CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE TBB::tbb)
-
 find_package(Threads REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
 
-# Install
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
+  # Install
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
-if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
-  install(CODE "
-    file(GLOB libraries \"$<TARGET_FILE_DIR:${PROJECT_NAME}>/*.dll\")
-    file(INSTALL $\{libraries} DESTINATION \"${CMAKE_INSTALL_PREFIX}/bin\")
-  ")
+  if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
+    install(CODE "
+      file(GLOB libraries \"$<TARGET_FILE_DIR:${PROJECT_NAME}>/*.dll\")
+      file(INSTALL $\{libraries} DESTINATION \"${CMAKE_INSTALL_PREFIX}/bin\")
+    ")
+  endif()
 endif()
